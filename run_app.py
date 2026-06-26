@@ -9,7 +9,8 @@ from tkinter import ttk
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 
-DEFAULT_MODEL = Path("models") / "electrocom61" / "best.pt"
+REPO_ROOT = Path(__file__).resolve().parent
+DEFAULT_MODEL = REPO_ROOT / "models" / "electrocom61" / "best.pt"
 IMAGE_FILE_TYPES = (
     ("Images", "*.jpg *.jpeg *.png *.bmp *.webp *.tif *.tiff"),
     ("All files", "*.*"),
@@ -192,9 +193,15 @@ class DetectorApp(Tk):
             messagebox.showinfo("Image manquante", "Choisis une image d'abord.")
             return
 
-        model_path = Path(self.model_var.get())
+        model_path = resolve_model_path(self.model_var.get())
         if not model_path.exists():
-            messagebox.showerror("Modele manquant", f"Modele introuvable:\n{model_path}")
+            messagebox.showerror(
+                "Modele manquant",
+                "Modele introuvable:\n"
+                f"{model_path}\n\n"
+                "Copie le best.pt dans models/electrocom61/best.pt "
+                "ou choisis le fichier avec Parcourir.",
+            )
             return
 
         self.detect_button.configure(state="disabled")
@@ -262,7 +269,7 @@ class DetectorApp(Tk):
         if self.annotated_image is None or self.image_path is None:
             return
 
-        default_dir = Path("data") / "output"
+        default_dir = REPO_ROOT / "data" / "output"
         default_dir.mkdir(parents=True, exist_ok=True)
         default_name = f"{self.image_path.stem}_detected.png"
         filename = filedialog.asksaveasfilename(
@@ -331,6 +338,13 @@ def detections_from_result(result: object) -> list[Detection]:
         )
 
     return detections
+
+
+def resolve_model_path(value: str) -> Path:
+    model_path = Path(value).expanduser()
+    if model_path.is_absolute() or model_path.exists():
+        return model_path
+    return REPO_ROOT / model_path
 
 
 def render_detections(image_path: Path, detections: list[Detection]) -> Image.Image:
