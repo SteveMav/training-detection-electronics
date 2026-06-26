@@ -165,7 +165,9 @@ Si CUDA n'est pas detecte, verifiez d'abord le pilote NVIDIA:
 nvidia-smi
 ```
 
-Le script installe PyTorch avec l'index CUDA suivant par defaut:
+PyTorch est necessaire parce qu'Ultralytics entraine YOLO avec le backend PyTorch. Le script l'installe separement pour forcer un build CUDA adapte au GPU, puis installe les autres dependances depuis `requirements.txt`.
+
+Index CUDA utilise par defaut:
 
 ```text
 https://download.pytorch.org/whl/cu121
