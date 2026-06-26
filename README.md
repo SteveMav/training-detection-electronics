@@ -189,6 +189,22 @@ Les images annotees et `summary.csv` seront ecrits dans:
 runs/predict/electrocom61-test/
 ```
 
+## Petite app Tkinter
+
+Pour tester rapidement une photo avec une interface:
+
+```powershell
+.\start_app.ps1
+```
+
+L'app charge par defaut:
+
+```text
+models/electrocom61/best.pt
+```
+
+Elle permet de choisir une image, lancer la detection, voir les boites et sauvegarder l'image annotee.
+
 ## Depannage rapide
 
 Si CUDA n'est pas detecte, verifiez d'abord le pilote NVIDIA:
