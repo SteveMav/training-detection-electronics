@@ -1,5 +1,7 @@
 data_t/
 datasets/
+data/input/
+data/output/
 runs/
 .venv/
 *.pt

@@ -22,9 +22,9 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def parse_batch(value: str) -> str | int | float:
+def parse_batch(value: str) -> int | float:
     if value.lower() == "auto":
-        return "auto"
+        return -1
     try:
         return int(value)
     except ValueError:

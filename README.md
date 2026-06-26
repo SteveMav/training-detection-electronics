@@ -157,6 +157,38 @@ Le script verifie notamment:
 python scripts/check_cuda.py --require-cuda --device 0
 ```
 
+## Tester le modele sur vos photos
+
+Apres un entrainement, le script copie le meilleur poids ici:
+
+```text
+models/electrocom61/best.pt
+```
+
+Pour tester vos propres photos, placez-les dans:
+
+```text
+data/input/
+```
+
+Puis lancez:
+
+```powershell
+.\test_model.ps1
+```
+
+Ou donnez directement un fichier/dossier:
+
+```powershell
+.\test_model.ps1 -Source "C:\chemin\vers\mes_photos" -Conf 0.25 -Open
+```
+
+Les images annotees et `summary.csv` seront ecrits dans:
+
+```text
+runs/predict/electrocom61-test/
+```
+
 ## Depannage rapide
 
 Si CUDA n'est pas detecte, verifiez d'abord le pilote NVIDIA:
